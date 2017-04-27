@@ -13,9 +13,11 @@ class ViewController: UIViewController {
 
   @IBOutlet weak var topView: UIView!
   @IBOutlet weak var topSpacer: UIView!
-  
   @IBOutlet weak var bottomSpacer: UIView!
   
+  
+  let TOKEN = "c32313df0d0ef512ca64d5b336a0d7c6"
+  let url = "https://shopicruit.myshopify.com/admin/"
   override func viewDidLoad() {
     super.viewDidLoad()
   }
@@ -24,6 +26,8 @@ class ViewController: UIViewController {
     stylize()
     
   }
+  
+  
 
   func stylize() {
     topView.layer.cornerRadius = topView.frame.width / 2
