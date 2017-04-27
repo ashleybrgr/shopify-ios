@@ -10,16 +10,30 @@ import UIKit
 
 class ViewController: UIViewController {
 
+
+  @IBOutlet weak var topView: UIView!
+  @IBOutlet weak var topSpacer: UIView!
+  
+  @IBOutlet weak var bottomSpacer: UIView!
+  
   override func viewDidLoad() {
     super.viewDidLoad()
-    // Do any additional setup after loading the view, typically from a nib.
+  }
+  
+  override func viewDidAppear(_ animated: Bool) {
+    stylize()
+    
   }
 
-  override func didReceiveMemoryWarning() {
-    super.didReceiveMemoryWarning()
-    // Dispose of any resources that can be recreated.
+  func stylize() {
+    topView.layer.cornerRadius = topView.frame.width / 2
+    topView.clipsToBounds = true
+    topSpacer.layer.cornerRadius = topSpacer.frame.width / 2
+    topSpacer.clipsToBounds = true
+    bottomSpacer.layer.cornerRadius = topSpacer.frame.width / 2
+    bottomSpacer.clipsToBounds = true
   }
-
-
+  
+  
 }
 
