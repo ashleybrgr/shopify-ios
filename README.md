@@ -2,9 +2,8 @@
 
 # Results
 Number of Aerodynamic Cotton Keyboards Sold: 24 <br>
-Total Revenue: $7886.83 <br>
+Total Revenue: $7886.83, assuming that revenue is the addition of `total_price` fields. <br>
 <img src="https://cloud.githubusercontent.com/assets/12451826/25512093/431c5a52-2b99-11e7-8929-e2b8b78683c0.png" width="350">
-
 # Task
 You're a successful Shopify merchant! You sell all sorts of nifty things and you’re curious about how your new Aerodynamic Cotton Keyboards are selling! Create a mobile app that calculates and displays the following data:
 The total order revenue for all products
