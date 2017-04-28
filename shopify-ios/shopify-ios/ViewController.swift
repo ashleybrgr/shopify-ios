@@ -23,7 +23,6 @@ class ViewController: UIViewController {
   let TOKEN = "c32313df0d0ef512ca64d5b336a0d7c6"
   let KEYBOARD_NAME = "Aerodynamic Cotton Keyboard"
   
-  var totalKeyboards: Int = 0
   
   override func viewWillAppear(_ animated: Bool) {
     
@@ -37,31 +36,28 @@ class ViewController: UIViewController {
         return
       }
       
-      self.parseOrders(response: response)
+      let count = self.parseOrders(response: response)
+      self.totalRevenueLabel.text = "$" + String(format: "%.2f", count.0)
+      self.keyboardLabel.text = String(count.1)
+      
     }
   }
   
-  func parseOrders(response: JSON) {
-    guard let orders = response["orders"].array else { return }
+  func parseOrders(response: JSON) -> (Double, Int) {
+    guard let orders = response["orders"].array else { return (0.00, 0) }
     
-    let revenue: Double = orders.reduce(0, {
+    return orders.reduce((0,0), { (result: (Double, Int), order) in
       
-      guard let products = $1["line_items"].array else { return $0 }
-      
-      self.totalKeyboards += products.reduce(0, {
-        guard let title = $1["title"].string else { return $0 }
-        guard let quantity = $1["quantity"].int else { return $0 }
-        let contains = title == self.KEYBOARD_NAME
-        return $0 + (contains ? quantity : 0)
-      })
-      
-      if let price = $1["total_price"].string, let doublePrice = Double(price) {
-        return $0 + doublePrice
+      var keyboards = 0, price = 0.00;
+      if let foundKeyboard = order["line_items"].arrayValue.first(where: {$0["title"].stringValue == KEYBOARD_NAME}) {
+        keyboards += foundKeyboard["quantity"].intValue
       }
-      return $0
+      if let total = order["total_price"].string, let doublePrice = Double(total) {
+        price += doublePrice
+      }
+
+      return(result.0 + price, result.1 + keyboards)
     })
-    self.totalRevenueLabel.text = "$" + String(revenue)
-    self.keyboardLabel.text = String(self.totalKeyboards)
   }
 
 
@@ -89,4 +85,5 @@ class ViewController: UIViewController {
   }
   
 }
+
 
